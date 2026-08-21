@@ -6,118 +6,97 @@ export class Preloader extends Phaser.Scene {
   }
 
   preload() {
-    this.createPlaceholderGraphics();
+    // Generate beautiful clean flat vector-like graphics for the components
   }
 
   create() {
-    this.scene.start('OfficeScene');
+    this.createMoboTexture();
+    this.createCPUTesture();
+    this.createRAMTexture();
+    this.createPSUTexture();
+    this.scene.start('MainMenu');
   }
 
-  private createPlaceholderGraphics() {
-    const palette = {
-      '0': '#00000000', // Transparente
-      '1': '#2C3E50', // Mobo Base
-      '2': '#34495E', // Mobo dark
-      '3': '#7F8C8D', // Silver / Metal
-      '4': '#BDC3C7', // Light Silver
-      '5': '#F1C40F', // Gold pins
-      '6': '#E74C3C', // GPU red accent
-      '7': '#2ECC71', // RAM green pcb
-      '8': '#000000', // Black
-      '9': '#F39C12'  // CPU gold
-    };
+  private createMoboTexture() {
+    const g = this.add.graphics();
+    g.fillStyle(0x2f3542); // Dark base
+    g.fillRoundedRect(0, 0, 160, 200, 8);
+    g.lineStyle(2, 0x0fb9b1);
+    g.strokeRoundedRect(0, 0, 160, 200, 8);
 
-    // --- MOBO (64x64 scaled via pixelWidth) ---
-    // Actually let's make it 16x16 and scale by 4
-    this.textures.generate('mobo_sprite', {
-      data: [
-        '1111111111111111',
-        '1222111111333331',
-        '1222111111333331',
-        '1222111111111111',
-        '1111111111111111',
-        '1113333112212211',
-        '1113993112212211',
-        '1113993112212211',
-        '1113333112212211',
-        '1111111112212211',
-        '1111111111111111',
-        '1333333333333331',
-        '1111111111111111',
-        '1111111111111111',
-        '1888811111888811',
-        '1111111111111111'
-      ],
-      pixelWidth: 8, palette
-    });
+    // CPU Socket
+    g.fillStyle(0x747d8c);
+    g.fillRect(50, 20, 60, 60);
+    g.lineStyle(1, 0xffd32a);
+    g.strokeRect(50, 20, 60, 60);
 
-    // --- CPU (16x16) ---
-    this.textures.generate('cpu_sprite', {
-      data: [
-        '0000000000000000',
-        '0000000000000000',
-        '0005555555555500',
-        '0005999999999500',
-        '0005944444449500',
-        '0005944444449500',
-        '0005944444449500',
-        '0005944444449500',
-        '0005944444449500',
-        '0005944444449500',
-        '0005944444449500',
-        '0005999999999500',
-        '0005555555555500',
-        '0000000000000000',
-        '0000000000000000',
-        '0000000000000000'
-      ],
-      pixelWidth: 4, palette
-    });
+    // RAM Slots
+    g.fillStyle(0x57606f);
+    g.fillRect(120, 20, 10, 80);
+    g.fillRect(135, 20, 10, 80);
 
-    // --- RAM (16x16) ---
-    this.textures.generate('ram_sprite', {
-      data: [
-        '0000000000000000',
-        '0000000000000000',
-        '0000000000000000',
-        '0000000000000000',
-        '0000000000000000',
-        '0777777777777770',
-        '0788888888888870',
-        '0788888888888870',
-        '0777777777777770',
-        '0555555005555550',
-        '0000000000000000',
-        '0000000000000000',
-        '0000000000000000',
-        '0000000000000000',
-        '0000000000000000',
-        '0000000000000000'
-      ],
-      pixelWidth: 4, palette
-    });
+    // PCIe Slot (GPU)
+    g.fillStyle(0xeccc68);
+    g.fillRect(20, 120, 120, 15);
 
-    // --- PSU (16x16) ---
-    this.textures.generate('psu_sprite', {
-      data: [
-        '0000000000000000',
-        '0888888888888880',
-        '0833333333333380',
-        '0838883333888380',
-        '0838883333888380',
-        '0838883333888380',
-        '0833333333333380',
-        '0838883333888380',
-        '0838883333888380',
-        '0838883333888380',
-        '0833333333333380',
-        '0888888888888880',
-        '0000000555000000',
-        '0000000555000000',
-        '0000000555000000',
-        '0000000000000000'
-      ],
-      pixelWidth: 6, palette
-    });
+    g.generateTexture('mobo_sprite', 160, 200);
+    g.destroy();
+  }
+
+  private createCPUTesture() {
+    const g = this.add.graphics();
+    g.fillStyle(0x2f3542);
+    g.fillRect(0, 0, 40, 40);
+    
+    g.fillStyle(0xdfe4ea);
+    g.fillRect(4, 4, 32, 32);
+
+    g.fillStyle(0xced6e0);
+    g.fillCircle(20, 20, 8);
+
+    g.generateTexture('cpu_sprite', 40, 40);
+    g.destroy();
+  }
+
+  private createRAMTexture() {
+    const g = this.add.graphics();
+    g.fillStyle(0x2ed573); // Green PCB
+    g.fillRect(0, 0, 10, 60);
+    
+    g.fillStyle(0x1e272e); // Black chips
+    g.fillRect(2, 5, 6, 10);
+    g.fillRect(2, 20, 6, 10);
+    g.fillRect(2, 35, 6, 10);
+    
+    g.fillStyle(0xeccc68); // Gold pins
+    g.fillRect(0, 50, 10, 10);
+
+    g.generateTexture('ram_sprite', 10, 60);
+    g.destroy();
+  }
+
+  private createPSUTexture() {
+    const g = this.add.graphics();
+    g.fillStyle(0x2f3542);
+    g.fillRect(0, 0, 80, 80);
+
+    // Fan circle
+    g.fillStyle(0x1e272e);
+    g.fillCircle(40, 40, 30);
+    
+    // Fan grill
+    g.lineStyle(2, 0x747d8c);
+    g.strokeCircle(40, 40, 25);
+    
+    // Cables coming out
+    g.fillStyle(0xff4757);
+    g.fillRect(70, 10, 20, 5);
+    g.fillStyle(0x2ed573);
+    g.fillRect(70, 20, 20, 5);
+    g.fillStyle(0x1e272e);
+    g.fillRect(70, 30, 20, 5);
+
+    g.generateTexture('psu_sprite', 90, 80);
+    g.destroy();
   }
 }

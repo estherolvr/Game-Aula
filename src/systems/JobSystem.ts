@@ -20,15 +20,15 @@ export class JobSystem {
     {
       id: 'job_1',
       clientName: 'Dona Benta',
-      description: 'Meu computador parou de ligar! Eu não entendo nada, acho que a fonte estourou quando choveu.',
-      budget: 50,
-      reward: 100,
+      description: 'Meu computador parou de ligar após uma queda de luz. Acho que a Fonte de Alimentação (PSU) estourou. Pode trocar por uma igual ou melhor?',
+      budget: 60,
+      reward: 150,
       brokenComponentType: 'PSU',
       basePC: {
         'MOBO': 'mobo_1',
         'CPU': 'cpu_1',
         'RAM': 'ram_1',
-        'PSU': 'psu_1' // Will be loaded as broken
+        'PSU': 'psu_1'
       }
     }
   ];
