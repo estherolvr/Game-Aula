@@ -1,18 +1,21 @@
 import Phaser from 'phaser';
-import { Preloader } from './scenes/Preloader';
-import { MainMenu } from './scenes/MainMenu';
-import { TutorialScene } from './scenes/TutorialScene';
-import { OfficeScene } from './scenes/OfficeScene';
-import { UIScene } from './scenes/UIScene';
+import { BootScene } from './scenes/BootScene';
+import { MenuScene } from './scenes/MenuScene';
+import { HowToPlayScene } from './scenes/HowToPlayScene';
+import { ArenaScene } from './scenes/ArenaScene';
+import { HUDScene } from './scenes/HUDScene';
+import { ResultScene } from './scenes/ResultScene';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
   width: 1280,
   height: 720,
-  parent: 'game-container',
-  backgroundColor: '#1e272e', 
-  pixelArt: true,
-  scene: [Preloader, MainMenu, TutorialScene, OfficeScene, UIScene]
+  backgroundColor: '#000011',
+  physics: {
+    default: 'arcade',
+    arcade: { debug: false }
+  },
+  scene: [BootScene, MenuScene, HowToPlayScene, ArenaScene, HUDScene, ResultScene]
 };
 
 new Phaser.Game(config);
